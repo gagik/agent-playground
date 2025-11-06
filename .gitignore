@@ -1,0 +1,5 @@
+.env
+node_modules/
+aggregation-results.json
+airbnb-analysis-results.json
+*.log

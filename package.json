@@ -1,0 +1,37 @@
+{
+  "name": "mongodb-analytics-cli",
+  "version": "1.0.0",
+  "description": "Advanced MongoDB aggregation analysis tool with CLI",
+  "main": "cli.js",
+  "bin": {
+    "mongodb-analytics": "./cli.js",
+    "mdb-analytics": "./cli.js"
+  },
+  "scripts": {
+    "start": "node cli.js",
+    "movies": "node complex-movie-aggregation.js",
+    "airbnb": "node airbnb-market-analysis.js",
+    "all": "node cli.js run all",
+    "interactive": "node cli.js interactive"
+  },
+  "keywords": [
+    "mongodb",
+    "aggregation",
+    "analytics",
+    "movies",
+    "airbnb",
+    "cli",
+    "data-analysis"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^6.0.0",
+    "dotenv": "^16.3.1",
+    "commander": "^11.1.0",
+    "chalk": "^4.1.2",
+    "ora": "^5.4.1",
+    "figlet": "^1.7.0",
+    "inquirer": "^8.2.6"
+  }
+}
