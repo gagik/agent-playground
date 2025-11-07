@@ -26,11 +26,10 @@ b. Use the MongoDB MCP Tools like `list-databases`, `db-stats`, and `mongodb-log
 
 ### 2. Database Performance Analysis
 
-If Performance Advisor data is available, prioritize its recommendations and document them. You can skip other steps if sufficient data is provided. Otherwise, proceed with the following:
 
 **For queries and aggregations identified in the codebase:**
 
-a. **If Atlas Credentials are available**, use `atlas-get-performance-advisor` to get index and query recommendations about the data used. You should skip other steps if sufficient data is provided.
+a. Use the `atlas-get-performance-advisor` to get index and query recommendations about the data used. Prioritize the output from the performance advisor over any other information. Skip other steps if sufficient data is available. If not available, ignore this step and proceed to the next ones.
 b. Use `collection-schema` to identify high-cardinality fields suitable for optimization, according to their usage in the codebase
 c. Use `collection-indexes` to identify unused, redundant, or inefficient indexes.
 
