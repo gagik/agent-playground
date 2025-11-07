@@ -10,9 +10,11 @@
  * there is currently no valid MongoDB connection configured.
  */
 
-console.log("=" + "=".repeat(60));
+const DIVIDER = "=".repeat(61);
+
+console.log(DIVIDER);
 console.log("MongoDB Connection Verification");
-console.log("=" + "=".repeat(60));
+console.log(DIVIDER);
 console.log("\nVerification Steps:");
 console.log("1. MongoDB MCP server is available and configured");
 console.log("2. Attempting to list databases using MCP server...");
@@ -26,6 +28,6 @@ console.log("- To establish a connection, use one of the following methods:");
 console.log("  a) Set MONGODB_URI environment variable in .env file");
 console.log("  b) Use mongodb-new-connect tool with a connection string");
 console.log("  c) Connect to MongoDB Atlas Local deployment");
-console.log("\n" + "=" + "=".repeat(60));
+console.log("\n" + DIVIDER);
 console.log("Verification Complete");
-console.log("=" + "=".repeat(60));
+console.log(DIVIDER);
