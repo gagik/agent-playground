@@ -29,7 +29,7 @@ b. Use the MongoDB MCP Tools like `list-databases`, `db-stats`, and `mongodb-log
 
 **For queries and aggregations identified in the codebase:**
 
-a. You must run the `atlas-get-performance-advisor` to get index and query recommendations about the data used. Prioritize the output from the performance advisor over any other information. Skip other steps if sufficient data is available. If the tool call fails or does not provide the needed information, ignore this step and proceed.
+a. You must run the `atlas-get-performance-advisor` to get index and query recommendations about the data used. Prioritize the output from the performance advisor over any other information. Skip other steps if sufficient data is available. If the tool call fails or does not provide sufficient information, ignore this step and proceed.
 b. Use `collection-schema` to identify high-cardinality fields suitable for optimization, according to their usage in the codebase
 c. Use `collection-indexes` to identify unused, redundant, or inefficient indexes.
 
@@ -52,7 +52,7 @@ b. Run benchmarks using `explain` to get baseline metrics
 - Memory usage (especially for sorts and groups)
 - Query plan efficiency
 
-### 8. Deliverables
+### 4. Deliverables
 Provide a comprehensive report including:
 - Summary of findings from database performance analysis
 - Detailed review of each query and aggregation pipeline with:
