@@ -9,6 +9,7 @@ Advanced MongoDB aggregation analysis tool with a powerful command-line interfac
 - 🎨 **Beautiful CLI** - Colorful, interactive command-line interface
 - 🔒 **Secure** - Uses environment variables for sensitive data
 - 📊 **Rich Analytics** - Complex aggregation pipelines with 50+ metrics
+- 📑 **Index Explorer** - View all MongoDB indexes for analyzed collections
 
 ## Installation
 
@@ -73,6 +74,12 @@ node cli.js list
 
 ```bash
 node cli.js info
+```
+
+### List MongoDB Indexes
+
+```bash
+node cli.js indexes
 ```
 
 ### Help

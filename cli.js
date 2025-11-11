@@ -5,6 +5,7 @@ const { program } = require("commander");
 const chalk = require("chalk");
 const ora = require("ora");
 const figlet = require("figlet");
+const { MongoClient } = require("mongodb");
 
 const complexMovieAnalysis = require("./complex-movie-aggregation");
 const complexAirbnbAnalysis = require("./airbnb-market-analysis");
@@ -136,6 +137,87 @@ function checkEnvironment() {
   console.log(chalk.green("✓ Environment configured\n"));
 }
 
+// List indexes
+async function listIndexes() {
+  const client = new MongoClient(process.env.MONGODB_URI);
+  const spinner = ora({
+    text: chalk.blue("Connecting to MongoDB..."),
+    spinner: "dots",
+  }).start();
+
+  try {
+    await client.connect();
+    spinner.text = chalk.blue("Fetching indexes...");
+
+    console.log(chalk.bold("\n📑 MongoDB Indexes\n"));
+    console.log(chalk.cyan("═".repeat(80)));
+
+    // Collections to check
+    const collections = [
+      { db: "sample_mflix", collection: "movies" },
+      { db: "sample_airbnb", collection: "listingsAndReviews" },
+    ];
+
+    for (const { db: dbName, collection: collectionName } of collections) {
+      const database = client.db(dbName);
+      const collection = database.collection(collectionName);
+
+      console.log(
+        chalk.yellow.bold(`\n${dbName}.${collectionName}`)
+      );
+      console.log(chalk.gray("─".repeat(80)));
+
+      const indexes = await collection.indexes();
+
+      if (indexes.length === 0) {
+        console.log(chalk.gray("  No indexes found"));
+      } else {
+        indexes.forEach((index, i) => {
+          console.log(chalk.cyan(`\n  ${i + 1}. ${index.name}`));
+          
+          // Display keys
+          const keys = Object.entries(index.key)
+            .map(([field, direction]) => {
+              const dirStr = direction === 1 ? "↑" : direction === -1 ? "↓" : direction;
+              return `${field}: ${dirStr}`;
+            })
+            .join(", ");
+          console.log(chalk.white(`     Keys: ${keys}`));
+
+          // Display other properties
+          if (index.unique) {
+            console.log(chalk.green("     Unique: ✓"));
+          }
+          if (index.sparse) {
+            console.log(chalk.magenta("     Sparse: ✓"));
+          }
+          if (index.partialFilterExpression) {
+            console.log(
+              chalk.blue(
+                `     Partial: ${JSON.stringify(index.partialFilterExpression)}`
+              )
+            );
+          }
+          if (index.expireAfterSeconds !== undefined) {
+            console.log(
+              chalk.yellow(`     TTL: ${index.expireAfterSeconds}s`)
+            );
+          }
+        });
+      }
+    }
+
+    console.log(chalk.cyan("\n" + "═".repeat(80) + "\n"));
+    spinner.succeed(chalk.green("Index listing completed"));
+  } catch (error) {
+    spinner.fail(chalk.red("Failed to fetch indexes"));
+    console.error(chalk.red("\n✗ Error:"), error.message);
+    process.exit(1);
+  } finally {
+    await client.close();
+  }
+}
+
 // Main CLI setup
 program
   .name("mongodb-analytics")
@@ -196,6 +278,15 @@ program
     console.log(chalk.bold("\n🔌 Database Connection Info:\n"));
     console.log(chalk.cyan("  Connection URI: ") + chalk.gray(maskedUri));
     console.log(chalk.cyan("  Status: ") + chalk.green("Configured ✓\n"));
+  });
+
+// Indexes command
+program
+  .command("indexes")
+  .description("List all MongoDB indexes for analyzed collections")
+  .action(async () => {
+    checkEnvironment();
+    await listIndexes();
   });
 
 // Interactive mode
