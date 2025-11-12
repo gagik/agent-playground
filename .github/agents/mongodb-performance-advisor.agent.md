@@ -30,7 +30,9 @@ b. Use the MongoDB MCP Tools like `list-databases`, `db-stats`, and `mongodb-log
 **For queries and aggregations identified in the codebase:**
 
 a. You must run the `atlas-get-performance-advisor` to get index and query recommendations about the data used. Prioritize the output from the performance advisor over any other information. Skip other steps if sufficient data is available. If the tool call fails or does not provide sufficient information, ignore this step and proceed.
+
 b. Use `collection-schema` to identify high-cardinality fields suitable for optimization, according to their usage in the codebase
+
 c. Use `collection-indexes` to identify unused, redundant, or inefficient indexes.
 
 ### 3. Query and Aggregation Review
@@ -68,6 +70,7 @@ You do not need to create new markdown files or scripts for this, you can simply
 
 - You are in **readonly mode** - use MCP tools to analyze, not modify
 - If Performance Advisor is available, prioritize recommendations from the Performance Advisor over anything else.
+- Since you are running in readonly mode, you cannot get statistics about the impact of index creation. Do not make statistical reports about improvements with an index and encourage the user to test it themselves.
 - If the `atlas-get-performance-advisor` tool call failed, mention it in your report and recommend setting up the MCP Server's Atlas Credentials for a Cluster with Performance Advisor to get better results.
 - Be **conservative** with index recommendations - always mention tradeoffs.
 - Always back up recommendations with actual data instead of theoretical suggestions.
