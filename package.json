@@ -12,7 +12,9 @@
     "movies": "node complex-movie-aggregation.js",
     "airbnb": "node airbnb-market-analysis.js",
     "all": "node cli.js run all",
-    "interactive": "node cli.js interactive"
+    "interactive": "node cli.js interactive",
+    "create-indexes": "node scripts/create-indexes.js",
+    "verify-indexes": "node scripts/verify-indexes.js"
   },
   "keywords": [
     "mongodb",

@@ -113,6 +113,44 @@ Analyzes the `sample_airbnb.listingsAndReviews` collection (5,555 documents):
 **Pipeline Stages:** 10  
 **Metrics:** 50+
 
+## Performance Optimization
+
+This project includes comprehensive MongoDB performance analysis and optimization tools.
+
+### Performance Analysis Report
+
+See [`PERFORMANCE_ANALYSIS.md`](./PERFORMANCE_ANALYSIS.md) for detailed:
+- Database and collection statistics
+- Query performance metrics
+- Index usage analysis
+- Optimization recommendations
+- Before/after comparisons
+
+### Create Performance Indexes
+
+To optimize query performance (40-56% improvement), run:
+
+```bash
+npm run create-indexes
+```
+
+This creates compound indexes for:
+- **Movies:** `{year, imdb.rating, imdb.votes, runtime}`
+- **Airbnb:** `{number_of_reviews, review_scores.review_scores_rating, bedrooms}`
+
+### Verify Indexes
+
+Check index status and usage:
+
+```bash
+npm run verify-indexes
+```
+
+**Note:** Creating indexes is optional but highly recommended for:
+- Better performance on large datasets
+- Faster query execution times
+- Scalability as data grows
+
 ## Architecture
 
 ### Scripts
