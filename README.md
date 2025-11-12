@@ -24,6 +24,16 @@ Create a `.env` file in the project root:
 MONGODB_URI=mongodb+srv://your-connection-string
 ```
 
+### Verifying MongoDB Connection
+
+To verify your MongoDB connection is properly configured, you can:
+
+1. Check the connection verification documentation: See [MONGODB_CONNECTION_VERIFICATION.md](./MONGODB_CONNECTION_VERIFICATION.md)
+2. Use the MongoDB MCP server `list-databases` tool to test connectivity
+3. Run the verification script: `npm run verify-connection`
+
+Note: The application requires a valid MongoDB connection with access to `sample_mflix` and `sample_airbnb` databases.
+
 ## Usage
 
 ### Interactive Mode (Recommended)
